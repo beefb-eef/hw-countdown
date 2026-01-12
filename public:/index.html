@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hayley Williams: Ego Death (Bachelorette Countdown)</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="grain"></div>
+
+      <!-- Zine cutout image -->
+      <div class="zine-wrap" aria-hidden="true">
+        <img class="hw" src="/images/hw.jpeg" alt="Hayley Williams" />
+        <div class="tape tape-a"></div>
+        <div class="tape tape-b"></div>
+      </div>
+
+      <section class="centerpiece" aria-live="polite">
+        <div class="kicker">COUNTDOWN TO</div>
+        <h1 class="title">Hayley Williams: Ego Death</h1>
+        <div class="sub">at a Bachelorette Party</div>
+
+        <div class="clock" id="clock" role="group" aria-label="Countdown clock">
+          <div class="unit">
+            <div class="label">DAYS</div>
+            <div class="flaps" data-unit="days"></div>
+          </div>
+          <div class="sep">:</div>
+          <div class="unit">
+            <div class="label">HRS</div>
+            <div class="flaps" data-unit="hours"></div>
+          </div>
+          <div class="sep">:</div>
+          <div class="unit">
+            <div class="label">MIN</div>
+            <div class="flaps" data-unit="minutes"></div>
+          </div>
+          <div class="sep">:</div>
+          <div class="unit">
+            <div class="label">SEC</div>
+            <div class="flaps" data-unit="seconds"></div>
+          </div>
+        </div>
+
+        <div class="when" id="when"></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

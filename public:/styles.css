@@ -1,0 +1,379 @@
+:root {
+  --bg: #0b0b0f;
+  --ink: #f2f2f2;
+  --muted: rgba(242, 242, 242, 0.72);
+  --shadow: rgba(0, 0, 0, 0.55);
+  --acid: #feb533;
+  --panel: rgba(10, 10, 14, 0.74);
+  --stroke: rgba(255, 255, 255, 0.12);
+  --flap: #0f0f14;
+  --flap2: #15151c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  overflow: hidden;
+}
+
+/* =======================
+   STAGE / BACKGROUND
+======================= */
+
+.stage {
+  min-height: 100vh;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.78)),
+    url("/images/background.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* grit + photocopy noise */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(254, 181, 51, 0.14), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.06), transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+
+/* =======================
+   ZINE CUTOUT IMAGE
+======================= */
+
+.zine-wrap {
+  position: absolute;
+  right: 6%;
+  top: 16%;
+  width: min(42vw, 460px);
+  transform: rotate(3deg);
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
+  pointer-events: none;
+}
+
+/* main image */
+.hw {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  opacity: 0.95;
+  filter: contrast(1.15) saturate(1.2) grayscale(0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  clip-path: polygon(
+    4% 2%, 14% 1%, 22% 3%, 33% 1%, 46% 3%, 58% 2%, 70% 4%, 83% 2%, 96% 5%,
+    98% 16%, 96% 27%, 99% 39%, 96% 52%, 98% 63%, 96% 76%, 98% 88%, 95% 98%,
+    83% 96%, 71% 99%, 58% 96%, 46% 98%, 34% 96%, 22% 99%, 11% 96%, 3% 98%,
+    2% 86%, 4% 73%, 2% 61%, 4% 49%, 2% 36%, 4% 24%
+  );
+
+  box-shadow:
+    2px 0 0 rgba(254, 181, 51, 0.18),
+    -2px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ripped paper edge */
+.zine-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background: rgba(255, 255, 255, 0.06);
+  clip-path: polygon(
+    6% 4%, 16% 2%, 24% 4%, 35% 2%, 47% 4%, 59% 3%, 71% 5%, 84% 3%, 96% 7%,
+    98% 18%, 96% 29%, 99% 41%, 96% 54%, 98% 65%, 96% 78%, 98% 90%, 95% 99%,
+    84% 97%, 72% 100%, 60% 97%, 47% 99%, 35% 97%, 23% 100%, 12% 97%, 5% 99%,
+    3% 88%, 5% 75%, 3% 63%, 5% 51%, 3% 38%, 5% 26%
+  );
+  filter: blur(0.4px);
+  opacity: 0.75;
+  z-index: -1;
+}
+
+/* halftone overlay */
+.zine-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: inherit;
+  background:
+    radial-gradient(circle, rgba(254, 181, 51, 0.2) 1px, transparent 1.6px) 0 0 /
+      9px 9px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1.6px) 4px
+      4px / 10px 10px;
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+}
+
+/* tape strips */
+.tape {
+  position: absolute;
+  width: 150px;
+  height: 38px;
+  background: linear-gradient(
+    90deg,
+    rgba(254, 181, 51, 0.65),
+    rgba(254, 181, 51, 0.25)
+  );
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  opacity: 0.78;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+}
+
+.tape-a {
+  top: -14px;
+  left: 18px;
+  transform: rotate(-12deg);
+}
+
+.tape-b {
+  bottom: -16px;
+  right: 22px;
+  transform: rotate(9deg);
+  width: 170px;
+  opacity: 0.7;
+}
+
+/* =======================
+   CENTER PANEL
+======================= */
+
+.centerpiece {
+  width: min(920px, 92vw);
+  padding: 24px 22px 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 12, 0.72),
+    rgba(8, 8, 12, 0.52)
+  );
+  border: 1px solid var(--stroke);
+  border-radius: 22px;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+
+.centerpiece::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  width: 140px;
+  height: 34px;
+  background: linear-gradient(
+    90deg,
+    rgba(254, 181, 51, 0.95),
+    rgba(254, 181, 51, 0.55)
+  );
+  transform: rotate(-2deg);
+  border-radius: 10px;
+  opacity: 0.85;
+}
+
+.centerpiece::after {
+  content: "EGO DEATH COUNTDOWN";
+  position: absolute;
+  top: -4px;
+  left: 32px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.78);
+  transform: rotate(-2deg);
+}
+
+.kicker {
+  letter-spacing: 0.28em;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.title {
+  margin: 10px 0 0;
+  font-size: clamp(22px, 3.2vw, 40px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.sub {
+  margin-top: 6px;
+  color: rgba(242, 242, 242, 0.82);
+  font-weight: 600;
+}
+
+.when {
+  margin-top: 14px;
+  color: rgba(242, 242, 242, 0.7);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+/* =======================
+   SPLIT FLAP CLOCK
+======================= */
+
+.clock {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.unit {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(242, 242, 242, 0.68);
+}
+
+.sep {
+  font-size: 34px;
+  opacity: 0.55;
+  transform: translateY(-4px);
+  user-select: none;
+}
+
+.flaps {
+  display: flex;
+  gap: 8px;
+}
+
+.digit {
+  width: clamp(44px, 5vw, 64px);
+  height: clamp(64px, 7vw, 92px);
+  position: relative;
+  perspective: 900px;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.45));
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, var(--flap2), var(--flap));
+  position: relative;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.half {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  display: grid;
+  place-items: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-weight: 800;
+  font-size: clamp(34px, 4vw, 52px);
+}
+
+.top {
+  top: 0;
+  transform-origin: bottom;
+}
+
+.bottom {
+  bottom: 0;
+  transform-origin: top;
+}
+
+.hinge {
+  position: absolute;
+  top: calc(50% - 3px);
+  left: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--acid);
+}
+
+.hinge.r {
+  left: auto;
+  right: 10px;
+}
+
+.flip .top {
+  animation: flipTop 0.42s ease-in forwards;
+}
+
+.flip .bottom {
+  animation: flipBottom 0.42s ease-out forwards;
+}
+
+@keyframes flipTop {
+  to {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes flipBottom {
+  from {
+    transform: rotateX(90deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 720px) {
+  .zine-wrap {
+    display: none;
+  }
+
+  .sep {
+    display: none;
+  }
+
+  .clock {
+    gap: 14px;
+  }
+}
