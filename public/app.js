@@ -24,11 +24,17 @@ function createDigit(initialChar = "0") {
 
   const top = document.createElement("div");
   top.className = "half top";
-  top.textContent = initialChar;
+  const topSpan = document.createElement("span");
+  topSpan.className = "glyph";
+  topSpan.textContent = initialChar;
+  top.appendChild(topSpan);
 
   const bottom = document.createElement("div");
   bottom.className = "half bottom";
-  bottom.textContent = initialChar;
+  const bottomSpan = document.createElement("span");
+  bottomSpan.className = "glyph";
+  bottomSpan.textContent = initialChar;
+  bottom.appendChild(bottomSpan);
 
   card.appendChild(hingeL);
   card.appendChild(hingeR);
@@ -37,34 +43,34 @@ function createDigit(initialChar = "0") {
   digit.appendChild(card);
 
   // Store refs
-  digit._top = top;
-  digit._bottom = bottom;
+  digit._topSpan = topSpan;
+  digit._bottomSpan = bottomSpan;
   digit._current = initialChar;
 
   return digit;
 }
 
+
 function setDigit(digitEl, nextChar) {
   if (digitEl._current === nextChar) return;
 
   digitEl.classList.remove("flip");
-  // Prepare: show current on top, next on bottom for the illusion
-  digitEl._top.textContent = digitEl._current;
-  digitEl._bottom.textContent = nextChar;
 
-  // Trigger animation
-  // Force reflow so the class toggle reliably restarts the animation
-  void digitEl.offsetWidth;
+  // show current on top, next on bottom for flip illusion
+  digitEl._topSpan.textContent = digitEl._current;
+  digitEl._bottomSpan.textContent = nextChar;
+
+  void digitEl.offsetWidth; // force reflow
   digitEl.classList.add("flip");
 
-  // After flip, lock both halves to the new char
   window.setTimeout(() => {
-    digitEl._top.textContent = nextChar;
-    digitEl._bottom.textContent = nextChar;
+    digitEl._topSpan.textContent = nextChar;
+    digitEl._bottomSpan.textContent = nextChar;
     digitEl._current = nextChar;
     digitEl.classList.remove("flip");
   }, 460);
 }
+
 
 function mountUnit(container, digitsCount, initialStr) {
   container.innerHTML = "";
