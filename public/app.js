@@ -54,22 +54,19 @@ function createDigit(initialChar = "0") {
 function setDigit(digitEl, nextChar) {
   if (digitEl._current === nextChar) return;
 
-  digitEl.classList.remove("flip");
-
-  // show current on top, next on bottom for flip illusion
-  digitEl._topSpan.textContent = digitEl._current;
+  // No animation: just set both halves immediately
+  digitEl._topSpan.textContent = nextChar;
   digitEl._bottomSpan.textContent = nextChar;
 
-  void digitEl.offsetWidth; // force reflow
-  digitEl.classList.add("flip");
+  digitEl._current = nextChar;
 
-  window.setTimeout(() => {
-    digitEl._topSpan.textContent = nextChar;
-    digitEl._bottomSpan.textContent = nextChar;
-    digitEl._current = nextChar;
-    digitEl.classList.remove("flip");
-  }, 460);
+  // Optional tiny “blink” on change (comment out if you want dead-still)
+  digitEl.classList.remove("blink");
+  void digitEl.offsetWidth; // restart animation reliably
+  digitEl.classList.add("blink");
+  window.setTimeout(() => digitEl.classList.remove("blink"), 120);
 }
+
 
 
 function mountUnit(container, digitsCount, initialStr) {
